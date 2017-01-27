@@ -1,47 +1,59 @@
 <!DOCTYPE html>
 <html data-ng-app="noteApp">
-<head>
-    <meta charset="UTF-8">
-    <title>Note</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <title>Note</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/noteController.js"></script>
-</head>
-<body data-ng-controller="noteCtrl as noteCtrl">
-<div class="container">
-    <div class="ng-scope">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Note Application</div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <p><label for="message">Note :</label>
-                        <textarea name="message" id="message" ng-change="noteCtrl.count()" ng-model="noteCtrl.messageNote" class="form-control ng-pristine ng-valid ng-valid-maxlength ng-touched"></textarea>
-                    </p>
-                    <p>
-                        <button class="btn btn-primary" ng-click="noteCtrl.save()">Enregistrer</button>
-                        <button class="btn btn-primary" ng-click="noteCtrl.clear()">Effacer</button>
-                    </p>
-                    <div ng-class="{
-                                'alert-danger':mainCtrl.count()<0
-                            }" class="alert alert-info alert-dismissible" role="alert">Nombre de caractères restant : {{ noteCtrl.count() }}</div>
+        <!-- Bootstrap-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-                    <div ng-class="{
-                                'alert-info':mainCtrl.message=='',
-                                'alert-warning':mainCtrl.message!='' && mainCtrl.modif!='Note sauvegardée',
-                                'alert-success':mainCtrl.modife=='Note sauvegardée'
-                            }" class="alert alert-dismissible alert-info ng-hide" role="alert">
-                        <span>modifé</span>
+        <!-- AngularJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
+
+        <!-- app -->
+        <script src="js/app.js"></script>
+        <script src="js/noteController.js"></script>
+    </head>
+    <body data-ng-controller="noteCtrl as noteCtrl">
+        <div class="container">
+            <div class="ng-scope">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Note Application</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <p><label for="message">Note :</label>
+                                <textarea name="message" id="message" data-ng-change="noteCtrl.modifie()" data-ng-model="noteCtrl.messageNote" class="form-control ng-pristine ng-valid ng-valid-maxlength ng-touched"></textarea>
+                            </p>
+                            <!-- Buttons -->
+                            <p>
+                                <button class="btn btn-primary" data-ng-click="noteCtrl.save()">Enregistrer</button>
+                                <button class="btn btn-primary" data-ng-click="noteCtrl.clear()">Effacer</button>
+                            </p>
+                            <!-- display caract availible left -->
+                            <div data-ng-class="{
+                                        'alert-warning':noteCtrl.count()<50,
+                                        'alert-danger':noteCtrl.count()<20,
+                                    }" class="alert data-alert alert-info alert-dismissible" role="alert">Nombre de caractères restant : {{ noteCtrl.count() }}</div>
+
+                            <!-- Information bubble -->
+                            <div data-ng-hide="noteCtrl.status == 0"
+                                 data-ng-class="{
+                                        'alert-success':noteCtrl.status == 1,
+                                        'alert-info':noteCtrl.status == 2,
+                                        'alert-danger':noteCtrl.status == 3,
+                                    }"
+                                 class="alert alert-dismissible alert-info"
+                                 role="alert">
+                                <span>{{ noteCtrl.info }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>
