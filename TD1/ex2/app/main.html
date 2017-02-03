@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-<html>
-    <head>
+<html data-ng-app="serviceApp">
+    <head lang="fr">
         <meta charset="utf-8"/>
         <title>TD2 - Angular</title>
 
@@ -13,28 +13,49 @@
 
         <!-- AngularJS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
 
         <!-- app -->
-        <script src="js/app.js"></script>
-        <script src="js/noteController.js"></script>
+        <script src="js/servicesApp.js"></script>
+        <script src="js/servicesController.js"></script>
 
     </head>
-    <body ng-app="serviceApp">
+    <body data-ng-controller="serviceCtrl as serviceCtrl">
+        <div class="container">
+            <h1 class="alert alert-info">Services</h1>
 
-        <h1>Services</h1>
 
-        <div class="info">
-            Choisissez les éléments à inclure.<br/>
-            Nb selectionées
+            <div>
+                Choisissez les éléments à inclure.<br/>
+                <ng-pluralize count="serviceCtrl.nbActifs"
+                              when="{'0': 'Aucun service sélectionné.',
+                             'one': '1 service sélectionné.',
+                             'other': '{} services sélectionnés.'}">
+                </ng-pluralize>
+            </div>
+
+
+            <!-- Listes des services -->
+            <ul data-ng-repeat="service in serviceCtrl.services">
+                <li ng-class="{
+                    'alert alert-warning':service.active,
+                    'alert data-alert alert-info alert-dismissible':!service.active,
+                }" ng-click="serviceCtrl.toggleActive(service)">
+                    {{ service.name }} : {{ service.price | currency }}
+                </li>
+
+            </ul>
+
+            <hr/>
+
+            <!-- Prix total -->
+            <h3>Total : {{ serviceCtrl.total() | currency }}</h3>
+
+            <!-- Code promo -->
+            <div>
+                <input type="checkbox" data-ng-model="serviceCtrl.promoEnabled" data-ng-change="serviceCtrl.checkPromo()"/>
+                <input type="text" data-ng-model="serviceCtrl.promoCode" data-ng-change="serviceCtrl.checkPromo()"/>
+            </div>
+
         </div>
-
-        <ul>
-            Liste des services
-        </ul>
-
-        <hr/>
-
-        <h3>Total : x€</h3>
     </body>
 </html>
