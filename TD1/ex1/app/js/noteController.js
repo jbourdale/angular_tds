@@ -2,7 +2,7 @@ angular.module("noteApp").controller("noteCtrl", ['$cookies', function($cookies)
 
     var self = this;
     this.saved = $cookies.get("noteApp_note"); //Getting note saved
-
+        console.log("Clear");
     //Initialising textarea
     if(this.saved) this.messageNote = this.saved;
     else this.messageNote = "";
