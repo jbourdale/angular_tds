@@ -18,42 +18,71 @@
         <script src="js/servicesApp.js"></script>
         <script src="js/servicesController.js"></script>
 
+        <!-- Personnal CSS -->
+        <link rel="stylesheet" href="css/style.css">
+
     </head>
     <body data-ng-controller="serviceCtrl as serviceCtrl">
-        <div class="container">
-            <h1 class="alert alert-info">Services</h1>
-
-
-            <div>
-                Choisissez les éléments à inclure.<br/>
-                <ng-pluralize count="serviceCtrl.nbActifs"
-                              when="{'0': 'Aucun service sélectionné.',
-                             'one': '1 service sélectionné.',
-                             'other': '{} services sélectionnés.'}">
-                </ng-pluralize>
+        <div class="container bg-info col-md-8 col-md-offset-2">
+            <div class="row">
+                <h1 class="col-md-4 col-md-offset-4">Services</h1>
             </div>
 
+            <div class="row">
+                <div class="alert alert-info col-md-8 col-md-offset-2">
+                    Choisissez les éléments à inclure.<br/>
+                    <ng-pluralize class="nbServices" count="serviceCtrl.nbActifs"
+                                  when="{'0': 'Aucun service sélectionné.',
+                                 'one': '1 service sélectionné.',
+                                 'other': '{} services sélectionnés.'}">
+                    </ng-pluralize>
+                </div>
+            </div>
 
             <!-- Listes des services -->
             <ul data-ng-repeat="service in serviceCtrl.services">
-                <li ng-class="{
-                    'alert alert-warning':service.active,
-                    'alert data-alert alert-info alert-dismissible':!service.active,
-                }" ng-click="serviceCtrl.toggleActive(service)">
-                    {{ service.name }} : {{ service.price | currency }}
-                </li>
+                <div class="row">
+                    <li ng-class="{
+                        'alert alert-warning':service.active,
+                        'alert data-alert alert-info alert-dismissible':!service.active,
+                    }" ng-click="serviceCtrl.toggleActive(service)" class="col-md-8 col-md-offset-2">
+                        {{ service.name }} : {{ service.price | currency }}
+                    </li>
+                </div>
 
             </ul>
 
             <hr/>
 
-            <!-- Prix total -->
-            <h3>Total : {{ serviceCtrl.total() | currency }}</h3>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <!-- Prix total -->
+                    <span class="total ">Total :</span>
+                    <span class="total price">{{ serviceCtrl.total() | currency }}</span>
+                </div>
+            </div>
 
             <!-- Code promo -->
-            <div>
-                <input type="checkbox" data-ng-model="serviceCtrl.promoEnabled" data-ng-change="serviceCtrl.checkPromo()"/>
-                <input type="text" data-ng-model="serviceCtrl.promoCode" data-ng-change="serviceCtrl.checkPromo()"/>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <input type="checkbox" data-ng-model="serviceCtrl.promoEnabled" data-ng-change="serviceCtrl.checkPromo()"/>
+                    <input type="text" data-ng-model="serviceCtrl.promoCode" data-ng-change="serviceCtrl.checkPromo()" placeholder="Code Promo"/>
+                </div>
+            </div>
+
+            <!-- Total avec Remise -->
+            <div class="row" ng-show="serviceCtrl.promoEnabled && serviceCtrl.promoCode.length">
+                <div class="col-md-8 col-md-offset-2">
+                    <span class="total">Remise :</span>
+                    <span ng-if="serviceCtrl.reduc!=0" class="total price"> {{ serviceCtrl.remise() | currency }}</span>
+                    <span ng-if="serviceCtrl.reduc == 0" class="total price"> {{ serviceCtrl.remise() }} </span>
+                </div>
+            </div>
+            <div class="row" ng-show="serviceCtrl.promoEnabled && serviceCtrl.promoCode.length">
+                <div class="col-md-8 col-md-offset-2">
+                    <span class="total">Total après remise :</span>
+                    <span class="total price" >{{ serviceCtrl.calculTotalRemise() | currency }}</span>
+                </div>
             </div>
 
         </div>

@@ -7,7 +7,6 @@ angular.module("serviceApp").controller("serviceCtrl", ['$http', function($http)
     this.promo;
 
     $http.get('assets/promo.json').then(function(response){
-        console.log("JSON : "+JSON.stringify(response.data));
         self.promo = response.data;
     }, function(){});
 
@@ -45,7 +44,7 @@ angular.module("serviceApp").controller("serviceCtrl", ['$http', function($http)
                tot+= self.services[i].price;
             }
         }
-        return tot - (tot * self.reduc);
+        return tot;
     };
 
     this.toggleActive = function(service){
@@ -64,5 +63,21 @@ angular.module("serviceApp").controller("serviceCtrl", ['$http', function($http)
         }else{
             self.reduc = 0;
         }
-    }
+    };
+
+    this.remise = function(){
+        if(self.reduc){
+            return self.total() * self.reduc;
+        }else{
+            return "Code promo invalide";
+        }
+    };
+
+    this.calculTotalRemise = function(){
+        if(self.reduc){
+            return self.total() - self.remise();
+        }else{
+            return self.total();
+        }
+    };
 }]);

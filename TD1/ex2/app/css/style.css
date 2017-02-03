@@ -1,0 +1,38 @@
+.container{
+    background-color: #61a1bc;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+h1{
+    color: #fff;
+    font-size: 50px;
+    font-family: 'Century gothic', cursive;
+    font-weight: normal;
+    line-height: 1;
+    text-shadow: 0 3px 0 rgba(0,0,0,0.1);
+}
+
+li{
+    list-style-type: none;
+}
+ul{
+    padding:0;
+}
+
+.total{
+    color: #fff;
+    font-family: 'Century gothic', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    text-shadow: 0 3px 0 rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.price{
+    float:right;
+}
+.nbServices{
+    font-weight: bold;
+}
