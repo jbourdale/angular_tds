@@ -74,8 +74,8 @@
             <div class="row" ng-show="serviceCtrl.promoEnabled && serviceCtrl.promoCode.length">
                 <div class="col-md-8 col-md-offset-2">
                     <span class="total">Remise :</span>
-                    <span ng-if="serviceCtrl.reduc!=0" class="total price"> {{ serviceCtrl.remise() | currency }}</span>
-                    <span ng-if="serviceCtrl.reduc == 0" class="total price"> {{ serviceCtrl.remise() }} </span>
+                    <span data-ng-if="serviceCtrl.reduc!=0" class="total price"> {{ serviceCtrl.remise() | currency }}</span>
+                    <span data-ng-if="serviceCtrl.reduc == 0" class="total price"> {{ serviceCtrl.remise() }} </span>
                 </div>
             </div>
             <div class="row" ng-show="serviceCtrl.promoEnabled && serviceCtrl.promoCode.length">

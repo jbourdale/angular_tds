@@ -3,8 +3,7 @@ angular.module("serviceApp").controller("serviceCtrl", ['$http', function($http)
     var self = this;
 
     this.reduc = 0;
-    console.log("Loading JSON file");
-    this.promo;
+    this.promo = {};
 
     $http.get('assets/promo.json').then(function(response){
         self.promo = response.data;
