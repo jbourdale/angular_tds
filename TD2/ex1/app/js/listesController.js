@@ -61,6 +61,14 @@ angular.module("listApp").controller("listeCtrl", ['$http', function($http){
         j=0;
         while(arr[j] != elem){j++} //Recherche
         arr.splice(j, 1); //Suppression
+    };
+
+    this.goToStep = function(step){
+        if(self.includedItems.length!=0){
+            self.step = step;
+            return true;
+        }
+        return false;
     }
 
 }]);

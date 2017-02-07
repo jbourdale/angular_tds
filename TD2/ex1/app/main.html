@@ -26,71 +26,91 @@
     </head>
     <body data-ng-controller="listeCtrl as ctrl">
 
-        <div id="container" data-ng-show="ctrl.step==0">
+        <!-- STEP 1 -->
+        <div id="container" data-ng-show="ctrl.step==0" >
 
-            <h1>Selectionnz vos produits</h1>
+            <h1>Selectionnez vos produits</h1>
 
-            <div>
-                <h3>Produits disponibles</h3>
-                <select title="Double-clic pour ajouter" class="form-control dispoItems" size="10"
-                        data-ng-model="ctrl.selectedDispoItem"
-                        data-ng-options="item.title for item in ctrl.dispoItems" multiple="multiple">
-                </select>
-            </div>
-
-            <div>
-                <ng-pluralize count="ctrl.includedItems.length"
-                              when="{'0': 'Aucun produit à inclure.',
-                                 'one': '1 produit inclus.',
-                                 'other': '{} produits inclus.'}">
-                </ng-pluralize>
-            </div>
-
-            <!-- BUTTONS -->
             <div class="inline-block">
-
-                <div title="Ajouter" class="btn btn-primary list-btn" data-ng-click="ctrl.addToIncluded()" data-ng-disabled="ctrl.selectedDispoItems.length<1">
-                    <span aria-hidden="true" class="glyphicon glyphicon-step-forward"></span>
+                <!-- DISPO ITEMS -->
+                <div class="inline-block">
+                    <p>Produits disponibles</p>
+                    <select title="Double-clic pour ajouter" class="form-control dispoItems" size="10"
+                            data-ng-model="ctrl.selectedDispoItem"
+                            data-ng-options="item.title for item in ctrl.dispoItems" multiple="multiple">
+                    </select>
                 </div>
+                <!-- END DISPO ITEMS -->
 
-                <div title="Ajouter tous" class="btn btn-primary list-btn" data-ng-click="ctrl.addAllToIncluded()" data-ng-disabled="ctrl.dispoItems.length<1">
-                    <span aria-hidden="true" class="glyphicon glyphicon-fast-forward"></span>
+
+                <!-- BUTTONS -->
+                <div class="inline-block">
+
+                    <div title="Ajouter" class="btn btn-primary list-btn" data-ng-click="ctrl.addToIncluded()" data-ng-disabled="ctrl.selectedDispoItem.length<1">
+                        <span aria-hidden="true" class="glyphicon glyphicon-step-forward"></span>
+                    </div>
+
+                    <div title="Ajouter tous" class="btn btn-primary list-btn" data-ng-click="ctrl.addAllToIncluded()" data-ng-disabled="ctrl.dispoItems.length<1">
+                        <span aria-hidden="true" class="glyphicon glyphicon-fast-forward"></span>
+                    </div>
+
+                    <div title="Retirer" class="btn btn-primary list-btn" data-ng-click="ctrl.removeFromIncluded()" data-ng-disabled="ctrl.selectedIncludedItems.length<1">
+                        <span aria-hidden="true" class="glyphicon glyphicon-step-backward"></span>
+                    </div>
+
+                    <div title="Retirer tous" class="btn btn-primary list-btn" data-ng-click="ctrl.removeAllFromIncluded()" data-ng-disabled="ctrl.includedItems.length<1">
+                        <span aria-hidden="true" class="glyphicon glyphicon-fast-backward"></span>
+                    </div>
                 </div>
+                <!-- END BUTTONS -->
 
-                <div title="Retirer" class="btn btn-primary list-btn" data-ng-click="ctrl.removeFromIncluded()" data-ng-disabled="ctrl.selectedIncludedItems.length<1">
-                    <span aria-hidden="true" class="glyphicon glyphicon-step-backward"></span>
+                <!-- INCLUDED ITEMS -->
+                <div class="inline-block">
+                    <p>Produits à inclure</p>
+                    <select title="Double-clic pour retirer" class="form-control dispoItems" size="10"
+                            data-ng-model="ctrl.selectedIncludedItems"
+                            data-ng-options="item.title for item in ctrl.includedItems" multiple="multiple">
+                    </select>
                 </div>
+                <!-- END INCLUDED ITEMS -->
 
-                <div title="Retirer tous" class="btn btn-primary list-btn" data-ng-click="ctrl.removeAllFromIncluded()" data-ng-disabled="ctrl.includedItems.length<1">
-                    <span aria-hidden="true" class="glyphicon glyphicon-fast-backward"></span>
+
+                <!-- NB ITEMS INCLUS-->
+                <div>
+                    <ng-pluralize count="ctrl.includedItems.length"
+                                  when="{'0': 'Aucun produit à inclure.',
+                                     'one': '1 produit inclus.',
+                                     'other': '{} produits inclus.'}">
+                    </ng-pluralize>
                 </div>
-            </div>
-            <!-- END BUTTONS -->
+                <!-- END NB ITEMS INCLUS-->
 
-            <div>
-                <h3>Produits à inclure</h3>
-                <select title="Double-clic pour retirer" class="form-control dispoItems" size="10"
-                        data-ng-model="ctrl.selectedIncludedItems"
-                        data-ng-options="item.title for item in ctrl.includedItems" multiple="multiple">
-                </select>
-            </div>
 
-            <div class="btn btn-primary"  data-ng-click="ctrl.step=1" data-ng-disabled="ctrl.includedItems.length==0">
-                <span>Etape suivante    </span><span aria-hidden="true" class="glyphicon glyphicon-circle-arrow-right"></span>
+                <!-- BUTTON NEXT STEP -->
+                <div class="btn btn-primary"  data-ng-click="ctrl.goToStep(1)" data-ng-disabled="ctrl.includedItems.length==0" style="width:98%;text-align: right">
+                    <span>Etape suivante</span><span aria-hidden="true" class="glyphicon glyphicon-circle-arrow-right"></span>
+                </div>
+                <!-- END BUTTON NEXT STEP -->
+
             </div>
         </div>
-
+        <!-- END STEP 1 -->
+        <!-- STEP 2 -->
         <div class="container" ng-show="ctrl.step==1">
-            <div data-ng-repeat="item in ctrl.includedItems">
-                <a data-ng-href="{{item.url}}" target="blank">
+
+            <h1>Votre choix</h1>
+
+            <ul data-ng-repeat="item in ctrl.includedItems">
+                <li><a data-ng-href="{{item.url}}" target="blank">
                     <img ng-src="{{item.image}}" />
                 </a> {{ item.title }}
-            </div>
+                </li>
+            </ul>
 
-            <div class="btn btn-primary" data-ng-click="ctrl.step=0">
+            <div class="btn btn-primary" data-ng-click="ctrl.step=0" style="width:98%;text-align: right;margin-top:5px">
                 <span aria-hidden="true" class="glyphicon glyphicon-circle-arrow-left"></span><span>     Retour au choix précédent</span>
             </div>
-
         </div>
+        <!-- END STEP 2 -->
     </body>
 </html>

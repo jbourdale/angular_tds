@@ -1,0 +1,44 @@
+body{
+    background-color: #61a1bc;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px #ccc;
+    padding: 10px 10px 15px 30px;
+    margin: 50px auto;
+    font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+h1 {
+    color: #fff;
+    font-size: 30px;
+    font-family: 'Century gothic', cursive;
+    font-weight: normal;
+    line-height: 1;
+    text-shadow: 0 3px 0 rgba(0,0,0,0.1);
+}
+
+.list-btn {
+    width: 70px;
+    display: block!important;
+    margin: 12px 6px;
+}
+
+div.inline-block {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dispoItems{
+    min-width: 500px;
+}
+
+ul {
+    list-style: none;
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+}
+ul li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    overflow: hidden;
+}
