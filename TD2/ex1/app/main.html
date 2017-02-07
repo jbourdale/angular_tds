@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+
+<html data-ng-app="listApp">
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>TD2 - Ex1 - Liste</title>
+
+
+        <!-- Bootstrap-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- AngularJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+
+        <!-- app -->
+        <script src="js/listesApp.js"></script>
+        <script src="js/listesController.js"></script>
+
+        <!-- Personnal CSS -->
+        <link rel="stylesheet" href="css/css.css">
+
+    </head>
+    <body data-ng-controller="listeCtrl as ctrl">
+
+        <div id="container" data-ng-show="ctrl.step==0">
+
+            <h1>Selectionnz vos produits</h1>
+
+            <div>
+                <h3>Produits disponibles</h3>
+                <select title="Double-clic pour ajouter" class="form-control dispoItems" size="10"
+                        data-ng-model="ctrl.selectedDispoItem"
+                        data-ng-options="item.title for item in ctrl.dispoItems" multiple="multiple">
+                </select>
+            </div>
+
+            <div>
+                <ng-pluralize count="ctrl.includedItems.length"
+                              when="{'0': 'Aucun produit à inclure.',
+                                 'one': '1 produit inclus.',
+                                 'other': '{} produits inclus.'}">
+                </ng-pluralize>
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="inline-block">
+
+                <div title="Ajouter" class="btn btn-primary list-btn" data-ng-click="ctrl.addToIncluded()" data-ng-disabled="ctrl.selectedDispoItems.length<1">
+                    <span aria-hidden="true" class="glyphicon glyphicon-step-forward"></span>
+                </div>
+
+                <div title="Ajouter tous" class="btn btn-primary list-btn" data-ng-click="ctrl.addAllToIncluded()" data-ng-disabled="ctrl.dispoItems.length<1">
+                    <span aria-hidden="true" class="glyphicon glyphicon-fast-forward"></span>
+                </div>
+
+                <div title="Retirer" class="btn btn-primary list-btn" data-ng-click="ctrl.removeFromIncluded()" data-ng-disabled="ctrl.selectedIncludedItems.length<1">
+                    <span aria-hidden="true" class="glyphicon glyphicon-step-backward"></span>
+                </div>
+
+                <div title="Retirer tous" class="btn btn-primary list-btn" data-ng-click="ctrl.removeAllFromIncluded()" data-ng-disabled="ctrl.includedItems.length<1">
+                    <span aria-hidden="true" class="glyphicon glyphicon-fast-backward"></span>
+                </div>
+            </div>
+            <!-- END BUTTONS -->
+
+            <div>
+                <h3>Produits à inclure</h3>
+                <select title="Double-clic pour retirer" class="form-control dispoItems" size="10"
+                        data-ng-model="ctrl.selectedIncludedItems"
+                        data-ng-options="item.title for item in ctrl.includedItems" multiple="multiple">
+                </select>
+            </div>
+
+            <div class="btn btn-primary"  data-ng-click="ctrl.step=1" data-ng-disabled="ctrl.includedItems.length==0">
+                <span>Etape suivante    </span><span aria-hidden="true" class="glyphicon glyphicon-circle-arrow-right"></span>
+            </div>
+        </div>
+
+        <div class="container" ng-show="ctrl.step==1">
+            <div data-ng-repeat="item in ctrl.includedItems">
+                <a data-ng-href="{{item.url}}" target="blank">
+                    <img ng-src="{{item.image}}" />
+                </a> {{ item.title }}
+            </div>
+
+            <div class="btn btn-primary" data-ng-click="ctrl.step=0">
+                <span aria-hidden="true" class="glyphicon glyphicon-circle-arrow-left"></span><span>     Retour au choix précédent</span>
+            </div>
+
+        </div>
+    </body>
+</html>
