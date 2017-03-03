@@ -1,0 +1,17 @@
+[
+  {
+    "nom": "ZUCKERBERG",
+    "prenom": "Mark",
+    "email": "mark@facebook.com"
+  },
+  {
+    "nom": "GATES",
+    "prenom": "Bill",
+    "email": "bill@microsoft.com"
+  },
+  {
+    "nom": "JOBS",
+    "prenom": "Steeve",
+    "email": "steeve@apple.com"
+  }
+]

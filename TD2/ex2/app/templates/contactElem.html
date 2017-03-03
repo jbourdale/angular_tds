@@ -1,0 +1,23 @@
+    <td style="margin-right:30px">
+        {{ contact.nom }}
+    </td>
+
+    <td style="margin-right:30px">
+        {{ contact.prenom }}
+    </td>
+
+    <td style="margin-right:30px">
+        {{ contact.email }}
+    </td>
+
+    <td style="margin-right:30px">
+        <a class="btn btn-info btn-xs" href="" data-ng-click="ctrl.toUpdate(contact)">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </a>
+    </td>
+
+    <td style="margin-right:30px">
+        <a class="btn btn-danger btn-xs" href="" data-ng-click="ctrl.delete(contact)">
+            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+        </a>
+    </td>

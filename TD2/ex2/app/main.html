@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+
+<html data-ng-app="contactApp">
+    <head>
+        <meta charset="utf-8"/>
+        <title>TD2 - Ex1 - Liste</title>
+
+
+        <!-- Bootstrap-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- AngularJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+
+        <!-- app -->
+        <script src="js/contactApp.js"></script>
+        <script src="js/directives.js"></script>
+        <script src="js/contactController.js"></script>
+
+        <!-- Personnal CSS -->
+        <link rel="stylesheet" href="css/css.css">
+    </head>
+    <body data-ng-controller="contactCtrl as ctrl">
+        <div class="container col-md-8 col-md-offset-2">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Contacts</div>
+                <div class="panel-body">
+
+                    <input type="text" class="form-control" placeholder="Filter..."/>
+
+                    <table>
+                        <tr contact-elem="contact" data-ng-repeat="contact in ctrl.contacts"></tr>
+
+                        <tr>
+                            <td colspan="4">
+                                <a id="add" href="" data-ng-click="ctrl.toAdd()" class="btn btn-primary">Ajouter...</a>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div data-ng-show="ctrl.operation != 0">
+                        <frm-contact></frm-contact>
+                    </div>
+
+
+                </div>
+
+                <div>
+                    <ng-pluralize count="ctrl.contacts.length"
+                                  when="{'0': 'Aucun contact enregistré.',
+                                     'one': '1 contact enregistré.',
+                                     'other': '{} contacts enregistrés.'}">
+                    </ng-pluralize>
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+</html>
