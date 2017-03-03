@@ -33,21 +33,24 @@
 
                     <input type="text" class="form-control" placeholder="Filter..." data-ng-model="filtre"/>
 
-                    <table>
-                        <tr contact-elem="contact" data-ng-repeat="contact in ctrl.contacts | notDeleted | filter:filtre as result"></tr>
+                    <table class="table table-striped">
+                        <tr contact-elem="contact" data-ng-repeat="contact in ctrl.contacts | filter:filtre | notDeleted as result"></tr>
 
                         <tr>
-                            <td colspan="4">
+                            <td colspan="5">
                                 <a id="add" href="" data-ng-click="ctrl.toAdd()" class="btn btn-primary">Ajouter...</a>
-                            </td>
 
-                            <td colspan="4" data-ng-show="ctrl.contacts.length-result.length > 0">
-                                <a href="" data-ng-click="ctrl.undelete()" class="btn btn-danger">
+                                <a href=""
+                                   data-ng-click="ctrl.undelete()"
+                                   class="btn btn-danger"
+                                   data-ng-show="ctrl.contacts.length-result.length > 0 &&!filtre">
+
                                     <ng-pluralize count="ctrl.contacts.length-result.length"
-                                                       when="{'one': 'Annuler la suppression.',
+                                                  when="{'one': 'Annuler la suppression.',
                                                       'other': 'Annuler les suppressions ({}) .'}">
                                         Annuler la suppression.
                                     </ng-pluralize>
+
                                 </a>
                             </td>
                         </tr>
@@ -60,11 +63,11 @@
 
                 </div>
 
-                <div>
+                <div class="container">
                     <ng-pluralize count="result.length"
-                                  when="{'0': 'Aucun contact enregistré.',
-                                     'one': '1 contact enregistré.',
-                                     'other': '{} contacts enregistrés.'}">
+                                  when="{'0': 'Aucun résultat.',
+                                     'one': '1 contact trouvé.',
+                                     'other': '{} contacts trouvés.'}">
                     </ng-pluralize>
                 </div>
 

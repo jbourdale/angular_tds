@@ -1,17 +1,26 @@
 <!-- CONTACT ELEM -->
-<h1>
-    <ng-pluralize count="ctrl.operation"
-                  when="{'1': 'Modifier un contact.',
-                         '2': 'Ajouter un contact.',
-                         }">
-    </ng-pluralize>
-</h1>
-<input type="text" placeholder="Entrez un nom..." data-ng-model="ctrl.tmpContact.nom">
-<input type="text" placeholder="Prénom..." data-ng-model="ctrl.tmpContact.prenom">
-<input type="text" placeholder="Adresse email..." data-ng-model="ctrl.tmpContact.email">
 
-<input ng-if="ctrl.operation == 1" type="submit" value="Modifier" class="btn btn-primary" data-ng-click="ctrl.update()">
-<input ng-if="ctrl.operation == 2" type="submit" value="Valider" class="btn btn-primary" data-ng-click="ctrl.add()">
+<fieldset class="container form-group form-inline" style="">
+    <legend class="ng-binding">
+        <ng-pluralize count="ctrl.operation"
+                      when="{'1': 'Modifier un contact.',
+                             '2': 'Ajouter un contact.',
+                             }">
+        </ng-pluralize>
+    </legend>
 
-<input type="button" value="Annuler" data-ng-click="ctrl.operation=0" class="btn btn-primary">
-<!-- END CONTACT ELEM --></ng-if>
+    <form name="frmContact" data-ng-submit="frmContact.$valid && ctrl.update()" novalidate>
+        <input type="text" placeholder="Entrez un nom..." data-ng-model="ctrl.tmpContact.nom" required>
+        <input type="text" placeholder="Prénom..." data-ng-model="ctrl.tmpContact.prenom" required>
+        <input type="email" placeholder="Adresse email..." data-ng-model="ctrl.tmpContact.email" required>
+
+        <input data-ng-if="ctrl.operation == 1" type="submit" value="Modifier" class="btn btn-primary">
+        <input data-ng-if="ctrl.operation == 2" type="submit" value="Valider" class="btn btn-primary">
+
+        <input type="button" value="Annuler" data-ng-click="ctrl.operation=0" class="btn btn-primary">
+    </form>
+</fieldset>
+<!-- END CONTACT ELEM -->
+
+
+

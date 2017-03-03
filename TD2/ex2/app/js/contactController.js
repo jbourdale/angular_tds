@@ -41,13 +41,15 @@ contactApp.controller("contactCtrl", ['$http', function($http){
     };
 
     this.add = function(){
+        self.tmpContact.deleted = 0;
         if(self.operation == 2) {
             self.contacts.push(self.tmpContact);
         }
         self.tmpContact = {
             "nom":"",
             "prenom":"",
-            "email":""
+            "email":"",
+            "deleted":"0"
         };
         self.operation = 0;
     };
@@ -68,5 +70,9 @@ contactApp.controller("contactCtrl", ['$http', function($http){
             self.contacts[i].deleted = "0";
         }
     };
+
+    this.tmp = function(form){
+        console.log("valid : "+form.$valid);
+    }
 
 }]);
