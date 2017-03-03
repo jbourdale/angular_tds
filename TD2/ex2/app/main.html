@@ -19,6 +19,7 @@
         <script src="js/contactApp.js"></script>
         <script src="js/directives.js"></script>
         <script src="js/contactController.js"></script>
+        <script src="js/filterNotDeleted.js"></script>
 
         <!-- Personnal CSS -->
         <link rel="stylesheet" href="css/css.css">
@@ -30,14 +31,24 @@
                 <div class="panel-heading">Contacts</div>
                 <div class="panel-body">
 
-                    <input type="text" class="form-control" placeholder="Filter..."/>
+                    <input type="text" class="form-control" placeholder="Filter..." data-ng-model="filtre"/>
 
                     <table>
-                        <tr contact-elem="contact" data-ng-repeat="contact in ctrl.contacts"></tr>
+                        <tr contact-elem="contact" data-ng-repeat="contact in ctrl.contacts | notDeleted | filter:filtre as result"></tr>
 
                         <tr>
                             <td colspan="4">
                                 <a id="add" href="" data-ng-click="ctrl.toAdd()" class="btn btn-primary">Ajouter...</a>
+                            </td>
+
+                            <td colspan="4" data-ng-show="ctrl.contacts.length-result.length > 0">
+                                <a href="" data-ng-click="ctrl.undelete()" class="btn btn-danger">
+                                    <ng-pluralize count="ctrl.contacts.length-result.length"
+                                                       when="{'one': 'Annuler la suppression.',
+                                                      'other': 'Annuler les suppressions ({}) .'}">
+                                        Annuler la suppression.
+                                    </ng-pluralize>
+                                </a>
                             </td>
                         </tr>
                     </table>
@@ -50,7 +61,7 @@
                 </div>
 
                 <div>
-                    <ng-pluralize count="ctrl.contacts.length"
+                    <ng-pluralize count="result.length"
                                   when="{'0': 'Aucun contact enregistré.',
                                      'one': '1 contact enregistré.',
                                      'other': '{} contacts enregistrés.'}">

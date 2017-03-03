@@ -19,56 +19,41 @@ angular.module("listApp").controller("listeCtrl", ['$http', function($http){
     /* END */
 
     this.addToIncluded = function(){
-        console.log("add to included");
-        console.log("Produits selectionnés : ");
+
         for(i=0; i<self.selectedDispoItem.length; i++){
-            self.removeItemInArray(self.dispoItems, self.selectedDispoItem[i]);
+            self.dispoItems.splice(self.dispoItems.indexOf(self.selectedDispoItem[i]), 1); //Suppression
             self.includedItems.push(self.selectedDispoItem[i]);
         }
         self.selectedDispoItem = [];
     };
 
     this.addAllToIncluded = function(){
-        console.log("add all to included");
-
-        for(i=0; i<self.dispoItems.length; i++){
-            self.includedItems.push(self.dispoItems[i]);
-        }
+        Array.prototype.push.apply(self.includedItems, self.dispoItems);//Merge dispoItems in includedItems
         self.dispoItems.length = 0;
     };
 
     this.removeFromIncluded = function(){
-        console.log("remove from included");
-        console.log("Produits selectionnés : ");
+
         for(i=0; i<self.selectedIncludedItems.length; i++){
-            self.removeItemInArray(self.includedItems, self.selectedIncludedItems[i]);
+            self.includedItems.splice(self.includedItems.indexOf(self.selectedIncludedItems[i]), 1); //Suppression
             self.dispoItems.push(self.selectedIncludedItems[i]);
         }
         self.selectedIncludedItems = [];
     };
 
     this.removeAllFromIncluded = function(){
-        console.log("remove all from included");
-
-        for(i=0; i<self.includedItems.length; i++){
-            self.dispoItems.push(self.includedItems[i]);
-        }
+        Array.prototype.push.apply(self.dispoItems, self.includedItems); //Merge includedItems in dispoItems
         self.includedItems.length = 0;
     };
 
-
-    this.removeItemInArray = function(arr, elem){
-        j=0;
-        while(arr[j] != elem){j++} //Recherche
-        arr.splice(j, 1); //Suppression
-    };
-
     this.goToStep = function(step){
-        if(self.includedItems.length!=0){
-            self.step = step;
-            return true;
+        if(step == 0 || step == 1){
+            if(self.includedItems.length!=0){
+                self.step = step;
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
 }]);

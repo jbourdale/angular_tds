@@ -2,12 +2,15 @@ contactApp.controller("contactCtrl", ['$http', function($http){
 
     var self = this;
 
+    this.result;
+    this.indiceContactModifier = -1;
     this.contacts = [];
     this.contact = {};
     this.tmpContact = {
         "nom":"",
         "prenom":"",
-        "email":""
+        "email":"",
+        "deleted":"0"
     };
     /*
         Operation :
@@ -16,12 +19,6 @@ contactApp.controller("contactCtrl", ['$http', function($http){
             2 : Ajout contact
      */
     this.operation=0;
-    /*
-        Edit:
-            0 : hidden
-            1 : shown
-     */
-    this.edit = 0;
 
     /* GETTING ASSETS/CONTACT.JSON CONTENT */
     $http.get('../assets/contacts.json').then(function(response){
@@ -34,7 +31,8 @@ contactApp.controller("contactCtrl", ['$http', function($http){
 
 
     this.toUpdate = function(contact){
-        self.tmpContact = contact;
+        self.indiceContactModifier = self.contacts.indexOf(contact);
+        self.tmpContact = angular.copy(contact);
         self.operation = 1;
     };
 
@@ -55,11 +53,20 @@ contactApp.controller("contactCtrl", ['$http', function($http){
     };
 
     this.update = function(){
+        self.contacts[self.indiceContactModifier] = angular.copy(self.tmpContact);
 
+        self.tmpContact = {};
+        self.operation = 0;
     };
 
     this.delete = function(contact){
+        contact.deleted = 1;
+    };
 
-    }
+    this.undelete = function(){
+        for(i in self.contacts){
+            self.contacts[i].deleted = "0";
+        }
+    };
 
 }]);

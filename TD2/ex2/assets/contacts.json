@@ -2,16 +2,19 @@
   {
     "nom": "ZUCKERBERG",
     "prenom": "Mark",
-    "email": "mark@facebook.com"
+    "email": "mark@facebook.com",
+    "deleted":"0"
   },
   {
     "nom": "GATES",
     "prenom": "Bill",
-    "email": "bill@microsoft.com"
+    "email": "bill@microsoft.com",
+    "deleted":"0"
   },
   {
     "nom": "JOBS",
     "prenom": "Steeve",
-    "email": "steeve@apple.com"
+    "email": "steeve@apple.com",
+    "deleted":"0"
   }
 ]
